@@ -1,0 +1,31 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@model UserModel
+
+<h2>Deploy Center for Clinical Health Systems</h2>
+
+@using (Html.BeginForm("Index", "Home", FormMethod.Post))
+{
+    <table>
+        <tr>
+            <td>@Html.LabelFor(model => model.UserName)</td>
+            <td>
+                @Html.EditorFor(model => Model.UserName)
+                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(model => model.UserPassword)</td>
+            <td>
+                @Html.EditorFor(model => model.UserPassword)
+                @Html.ValidationMessageFor(model=> model.UserPassword, "", new { @class = "text-danger" })
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="submit" value="Login" /></td>
+        </tr>
+    </table>
+}
+
