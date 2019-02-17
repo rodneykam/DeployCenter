@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -68,11 +69,16 @@ namespace DeployCenter.Models
 
     public class DeployInputModel
     {
-        public int EnvironmentId { get; set; }
+        [Display(Name="Environment")]
+        public string EnvironmentId { get; set; }
+        [Display(Name ="Revision")]
         public string Revision { get; set; }
-        public int[] Servers { get; set; }
+        [Display(Name ="Servers")]
+        public string[] Servers { get; set; }
+        [Display(Name ="Deploy Options")]
         public bool[] DeployOptions { get; set; }
 
+        public List<SelectListItem> RevisionList { get; set; }
         public List<SelectListItem> EnvironmentList { get; set; }
         public List<SelectListItem> ServerList { get; set; }
 

@@ -9,5 +9,11 @@
 <h2>@ViewData["Title"]</h2>
 <h3>@ViewData["Message"]</h3>
 
+@Html.LabelFor(model => model.Revision)
+@Html.DropDownListFor(model => model.Revision, Model.RevisionList)
+
+@Html.LabelFor(model => model.EnvironmentId)
 @Html.DropDownListFor(model => model.EnvironmentId, Model.EnvironmentList)
-@Html.ListBoxFor(model => model.Servers, new MultiSelectList(Model.ServerList,"Value","Text"), new { size = 10, Multiple = "multiple"})
+
+@Html.LabelFor(model => model.Servers)
+@Html.ListBoxFor(model => model.Servers, new MultiSelectList(Model.ServerList, "Value", "Text"), new { size = 10, Multiple = "multiple" })

@@ -11,24 +11,26 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 namespace DeployCenter.Controllers
 {
     public class DeployInputController : Controller
-    {
+    { 
         // GET: /<controller>/
         public IActionResult Index()
         {
             var model = new DeployInputModel();
 
-            model.EnvironmentList = new List<SelectListItem> 
-                {
-                    new SelectListItem { Selected = true, Text = "Stage", Value = "1"},
-                    new SelectListItem { Selected = false, Text = "Integration", Value = "2"}
+            model.RevisionList = new List<SelectListItem>
+                { new SelectListItem { Selected = false, Text = "19.1.5000.1", Value = "1" },
+                  new SelectListItem { Selected = false, Text = "19.2.6000.1", Value = "2" },
+                  new SelectListItem { Selected = false, Text = "19.3.6500.1", Value = "3" }
+                };
+
+            model.EnvironmentList = new List<SelectListItem>
+                { new SelectListItem { Selected = false, Text = "Stage", Value = "STAGE"},
+                  new SelectListItem { Selected = false, Text = "Integration", Value = "INTEG"},
+                  new SelectListItem { Selected = false, Text = "Production", Value = "PROD"},
                 };
 
             model.ServerList = new List<SelectListItem>
-                {
-                    new SelectListItem { Selected = true, Text = "SJSTWEB02", Value = "2"},
-                    new SelectListItem { Selected = false, Text = "SJSTWEB03", Value = "3"},
-                    new SelectListItem { Selected = false, Text = "SJSTWEB04", Value = "4"},
-                    new SelectListItem { Selected = false, Text = "SJSTWEB05", Value = "5"}
+                { new SelectListItem { Selected = false, Text = "Server List Goes Here", Value = "1"},
                 };
 
             ViewData["Message"] = "This page displays deployment options.";
