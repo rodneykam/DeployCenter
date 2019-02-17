@@ -4,6 +4,10 @@
 @{
     ViewData["Title"] = "Health Systems Deployment";
 }
+@model DeployInputModel
 
 <h2>@ViewData["Title"]</h2>
 <h3>@ViewData["Message"]</h3>
+
+@Html.DropDownListFor(model => model.EnvironmentId, Model.EnvironmentList)
+@Html.ListBoxFor(model => model.Servers, new MultiSelectList(Model.ServerList,"Value","Text"), new { size = 10, Multiple = "multiple"})

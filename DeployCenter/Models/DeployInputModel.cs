@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Reflection;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -52,15 +54,27 @@ namespace DeployCenter.Models
 
     }
 
+    public class EnvironmentInfo
+    {
+        public string Name { get; set; }
+        public string Domain { get; set; }
+        public List<ServerInfo> Servers { get; set; }
+    }
+
+    public class ServerInfo
+    {
+        public string Name { get; set; }
+    }
+
     public class DeployInputModel
     {
-        public string EnvironmentId { get; set; }
+        public int EnvironmentId { get; set; }
         public string Revision { get; set; }
-        public string[] Servers { get; set; }
+        public int[] Servers { get; set; }
         public bool[] DeployOptions { get; set; }
 
-        public MultiSelectList ServerList { get; set; }
-        public SelectList EnvironmentList { get; set; }
+        public List<SelectListItem> EnvironmentList { get; set; }
+        public List<SelectListItem> ServerList { get; set; }
 
         public DeployInputModel()
         {
