@@ -8,53 +8,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace DeployCenter.Models
 {
-    public static class DeployOption
-    {
-        public enum Option
-        {
-            NoOption,
-            [Description("Copy and UnZip Artifacts")]
-            Unzip,
-            [Description("Disable Load Balancer")]
-            DisableLB,
-            [Description("Deploy Core Application and Services")]
-            Core,
-            [Description("Deploy HydroPlatform Services")]
-            Hydro,
-            [Description("Deploy verification Tests")]
-            Verify,
-            [Description("Update Switches")]
-            Switches,
-            [Description("Deploy Direct Messaging Service")]
-            DirectMsg,
-            [Description("Enable Load Balancer")]
-            EnableLB,
-            MAX_VALUE
-        }
-
-        public static string GetDescription(this Option value)
-        {
-            Type type = value.GetType();
-            string name = Enum.GetName(type, value);
-            if (name != null)
-            {
-                FieldInfo field = type.GetField(name);
-                if (field != null)
-                {
-                    DescriptionAttribute attr =
-                           Attribute.GetCustomAttribute(field,
-                             typeof(DescriptionAttribute)) as DescriptionAttribute;
-                    if (attr != null)
-                    {
-                        return attr.Description;
-                    }
-                }
-            }
-            return null;
-        }
-
-    }
-
     public class EnvironmentInfo
     {
         public string Name { get; set; }
@@ -75,25 +28,26 @@ namespace DeployCenter.Models
         public string Revision { get; set; }
         [Display(Name ="Servers")]
         public string[] Servers { get; set; }
-        [Display(Name ="Deploy Options")]
-        public bool[] DeployOptions { get; set; }
+        [Display(Name ="Copy and Unzip Artifacts")]
+        public bool Do_CopyUnzip{ get; set; }
+        [Display(Name = "Disable Servers in Load Balancer")]
+        public bool Do_DisableLB { get; set; }
+        [Display(Name = "Deploy Core Application and Services")]
+        public bool Do_Core { get; set; }
+        [Display(Name = "Deploy HydroPlatform Servicess]")]
+        public bool Do_Hydro { get; set; }
+        [Display(Name = "Deploy Verification Tests")]
+        public bool Do_Verification { get; set; }
+        [Display(Name = "Enable Services in Load Balancer")]
+        public bool Do_EnableLB { get; set; }
+        [Display(Name = "Update Switches")]
+        public bool Do_Switches { get; set; }
+        [Display(Name = "Ueploy Direct Messaging")]
+        public bool Do_DirMsg { get; set; }
 
         public List<SelectListItem> RevisionList { get; set; }
         public List<SelectListItem> EnvironmentList { get; set; }
         public List<SelectListItem> ServerList { get; set; }
-
-        public DeployInputModel()
-        {
-            DeployOptions = new bool[(int)DeployOption.Option.MAX_VALUE];
-        }
-
-        private void ClearOptions()
-        {
-            for(var i = 0; i < DeployOptions.Length; i++)
-            {
-                DeployOptions[i] = false;
-            }
-        }
 
     }
 }
