@@ -1,0 +1,90 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Health Systems Deployment";
+}
+@model DeployInputModel
+<style>
+
+    td {
+        padding-right: 8px;
+        text-align: left;
+    }
+</style>
+<h2>@ViewData["Title"]</h2>
+<div>
+    @Html.LabelFor(model => model.Revision)
+    @Html.DropDownListFor(model => model.Revision, Model.RevisionList)
+</div>
+<div>
+    @Html.LabelFor(model => model.EnvironmentId)
+    @Html.DropDownListFor(model => model.EnvironmentId, Model.EnvironmentList, new { @onchange = "FillServerList();" })
+</div>
+<div>
+    @Html.LabelFor(model => model.Servers)
+    @Html.ListBoxFor(model => model.Servers, new MultiSelectList(Model.ServerList, "Value", "Text"), new { size = 10, Multiple = "multiple" })
+</div>
+<div>
+    <table>
+        <tr>
+            <td>@Html.CheckBoxFor(model => model.Do_CopyUnzip)</td>
+            <td>@Html.LabelFor(model => model.Do_CopyUnzip)</td>
+        </tr>
+        <tr>
+            <td>@Html.CheckBoxFor(model => model.Do_DisableLB)</td>
+            <td>@Html.LabelFor(model => model.Do_DisableLB)</td>
+        </tr>
+        <tr>
+            <td>@Html.CheckBoxFor(model => model.Do_Core)</td>
+            <td>@Html.LabelFor(model => model.Do_Core)</td>
+        </tr>
+        <tr>
+            <td>@Html.CheckBoxFor(model => model.Do_Hydro)</td>
+            <td>@Html.LabelFor(model => model.Do_Hydro)</td>
+        </tr>
+        <tr>
+            <td>@Html.CheckBoxFor(model => model.Do_Verification)</td>
+            <td>@Html.LabelFor(model => model.Do_Verification)</td>
+        </tr>
+        <tr>
+            <td>@Html.CheckBoxFor(model => model.Do_EnableLB)</td>
+            <td>@Html.LabelFor(model => model.Do_EnableLB)</td>
+        </tr>
+        <tr>
+            <td>@Html.CheckBoxFor(model => model.Do_Switches)</td>
+            <td>@Html.LabelFor(model => model.Do_Switches)</td>
+        </tr>
+        <tr>
+            <td>@Html.CheckBoxFor(model => model.Do_DirMsg)</td>
+            <td>@Html.LabelFor(model => model.Do_DirMsg)</td>
+        </tr>
+    </table>
+</div>
+
+@section Scripts {
+
+    <script type="text/javascript">
+        
+        function FillServerList() {
+            var envKey = $('#EnvironmentId').val();
+            $.ajax({
+                url: '/DeployInput/FillServerList',
+                type: "GET",
+                dataType: "TEXT",
+                data: {
+                    environmentKey: envKey
+                },
+                success: function (servers) {
+                    $("#Servers").html(""); // clear before appending new list
+                    $.each(servers, function (i, value) {
+                        $("#Servers").append(
+                            $('<option></option>').val(value.Name).html(value.Id));
+                    });
+                }
+            });
+        }
+        
+    </script>
+
+}

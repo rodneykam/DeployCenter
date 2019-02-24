@@ -1,0 +1,96 @@
+﻿{
+  "DeployTargets": [
+    {
+      "Environment": "Stage",
+      "Servers": [
+        {
+          "Id": "2",
+          "Name": "SJSTWEB02"
+        },
+        {
+          "Id": "3",
+          "Name": "SJSTWEB03"
+        },
+        {
+          "Id": "4",
+          "Name": "SJSTWEB04"
+        },
+        {
+          "Id": "5",
+          "Name": "SJSTWEB05"
+        }
+      ]
+    },
+    {
+      "Environment": "Integration",
+      "Servers": [
+        {
+          "Id": "1",
+          "Name": "SJINWEB01"
+        },
+        {
+          "Id": "2",
+          "Name": "SJINWEB02"
+        },
+        {
+          "Id": "3",
+          "Name": "SJINWEB03"
+        },
+        {
+          "Id": "4",
+          "Name": "SJINWEB04"
+        }
+      ]
+    },
+    {
+      "Environment": "Demo",
+      "Servers": [
+        {
+          "Id": "1",
+          "Name": "SJDEWEB01"
+        },
+        {
+          "Id": "2",
+          "Name": "SJDEWEB02"
+        },
+        {
+          "Id": "3",
+          "Name": "SJDEWEB03"
+        },
+        {
+          "Id": "4",
+          "Name": "SJDEWEB04"
+        }
+      ]
+    },
+    {
+      "Environment": "Production",
+      "Servers": [
+        {
+          "Id": "1",
+          "Name": "SJPRWEB01"
+        },
+        {
+          "Id": "2",
+          "Name": "SJPRWEB02"
+        },
+        {
+          "Id": "3",
+          "Name": "SJPRWEB03"
+        },
+        {
+          "Id": "4",
+          "Name": "SJPRWEB04"
+        },
+        {
+          "Id": "5",
+          "Name": "SJPRWEB05"
+        },
+        {
+          "Id": "6",
+          "Name": "SJPRWEB06"
+        }
+      ]
+    }
+  ]
+}
