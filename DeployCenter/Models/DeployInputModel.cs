@@ -19,12 +19,18 @@ namespace DeployCenter.Models
 
     public class DeployInputModel
     {
+        [Required]
         [Display(Name="Environment")]
         public string EnvironmentId { get; set; }
+
+        [Required]
         [Display(Name ="Revision")]
         public string Revision { get; set; }
+
+        [Required]
         [Display(Name ="Servers")]
         public string[] Servers { get; set; }
+
         [Display(Name ="Copy and Unzip Artifacts")]
         public bool Do_CopyUnzip{ get; set; }
         [Display(Name = "Disable Servers in Load Balancer")]

@@ -2,10 +2,13 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
+    /**/
+
     ViewData["Title"] = "Health Systems Deployment";
 }
 @using DeployCenter.Models
 @model DeployInputModel
+
 <style>
 
     td {
@@ -13,60 +16,76 @@
         text-align: left;
     }
 </style>
+
 <h2>@ViewData["Title"]</h2>
-<div>
-    @Html.LabelFor(model => model.Revision)
-    @Html.DropDownListFor(model => model.Revision, Model.RevisionList)
-</div>
-<div>
-    @Html.LabelFor(model => model.EnvironmentId)
-    @Html.DropDownListFor(model => model.EnvironmentId, Model.EnvironmentList, new { @onchange = "FillServerList();" })
-</div>
-<div>
-    @Html.LabelFor(model => model.Servers)
-    @Html.ListBoxFor(model => model.Servers, new MultiSelectList(Model.ServerList, "Value", "Text"), new { size = 10, Multiple = "multiple" })
-</div>
-<div>
-    <table>
-        <tr>
-            <td>@Html.CheckBoxFor(model => model.Do_CopyUnzip)</td>
-            <td>@Html.LabelFor(model => model.Do_CopyUnzip)</td>
-        </tr>
-        <tr>
-            <td>@Html.CheckBoxFor(model => model.Do_DisableLB)</td>
-            <td>@Html.LabelFor(model => model.Do_DisableLB)</td>
-        </tr>
-        <tr>
-            <td>@Html.CheckBoxFor(model => model.Do_Core)</td>
-            <td>@Html.LabelFor(model => model.Do_Core)</td>
-        </tr>
-        <tr>
-            <td>@Html.CheckBoxFor(model => model.Do_Hydro)</td>
-            <td>@Html.LabelFor(model => model.Do_Hydro)</td>
-        </tr>
-        <tr>
-            <td>@Html.CheckBoxFor(model => model.Do_Verification)</td>
-            <td>@Html.LabelFor(model => model.Do_Verification)</td>
-        </tr>
-        <tr>
-            <td>@Html.CheckBoxFor(model => model.Do_EnableLB)</td>
-            <td>@Html.LabelFor(model => model.Do_EnableLB)</td>
-        </tr>
-        <tr>
-            <td>@Html.CheckBoxFor(model => model.Do_Switches)</td>
-            <td>@Html.LabelFor(model => model.Do_Switches)</td>
-        </tr>
-        <tr>
-            <td>@Html.CheckBoxFor(model => model.Do_DirMsg)</td>
-            <td>@Html.LabelFor(model => model.Do_DirMsg)</td>
-        </tr>
-    </table>
-</div>
+
+@using (Html.BeginForm("Index", "DeployInput", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div>
+        @Html.LabelFor(model => model.Revision)
+        @Html.DropDownListFor(model => model.Revision, Model.RevisionList)
+        @Html.ValidationMessageFor(model => model.Revision, "", new { @class = "text-danger" })
+    </div>
+    <div>
+        @Html.LabelFor(model => model.EnvironmentId)
+        @Html.DropDownListFor(model => model.EnvironmentId, Model.EnvironmentList, new { @onchange = "FillServerList();" })
+        @Html.ValidationMessageFor(model => model.Revision, "", new { @class = "text-danger" })
+    </div>
+    <div>
+        @Html.LabelFor(model => model.Servers)
+        @Html.ListBoxFor(model => model.Servers, new MultiSelectList(Model.ServerList, "Value", "Text"), new { size = 10, Multiple = "multiple" })
+        @Html.ValidationMessageFor(model => model.Revision, "", new { @class = "text-danger" })
+    </div>
+    <div>
+        <table>
+            <tr>
+                <td>@Html.CheckBoxFor(model => model.Do_CopyUnzip)</td>
+                <td>@Html.LabelFor(model => model.Do_CopyUnzip)</td>
+            </tr>
+            <tr>
+                <td>@Html.CheckBoxFor(model => model.Do_DisableLB)</td>
+                <td>@Html.LabelFor(model => model.Do_DisableLB)</td>
+            </tr>
+            <tr>
+                <td>@Html.CheckBoxFor(model => model.Do_Core)</td>
+                <td>@Html.LabelFor(model => model.Do_Core)</td>
+            </tr>
+            <tr>
+                <td>@Html.CheckBoxFor(model => model.Do_Hydro)</td>
+                <td>@Html.LabelFor(model => model.Do_Hydro)</td>
+            </tr>
+            <tr>
+                <td>@Html.CheckBoxFor(model => model.Do_Verification)</td>
+                <td>@Html.LabelFor(model => model.Do_Verification)</td>
+            </tr>
+            <tr>
+                <td>@Html.CheckBoxFor(model => model.Do_EnableLB)</td>
+                <td>@Html.LabelFor(model => model.Do_EnableLB)</td>
+            </tr>
+            <tr>
+                <td>@Html.CheckBoxFor(model => model.Do_Switches)</td>
+                <td>@Html.LabelFor(model => model.Do_Switches)</td>
+            </tr>
+            <tr>
+                <td>@Html.CheckBoxFor(model => model.Do_DirMsg)</td>
+                <td>@Html.LabelFor(model => model.Do_DirMsg)</td>
+            </tr>
+        </table>
+    </div>
+    <div>
+        <input type="submit" value="Deploy" class="btn btn-default" />
+        &nbsp;&nbsp;&nbsp;
+        <input type="button" value="Cancel Deploy" class="btn btn-default" onclick="window.location.href = '@Url.Action("Index", "Home")';" />
+    </div>
+}
 
 @section Scripts {
 
     <script type="text/javascript">
-        
+
         function FillServerList() {
             var envKey = $('#EnvironmentId').val();
             $.ajax({
@@ -85,7 +104,7 @@
                 }
             });
         }
-        
+
     </script>
 
 }

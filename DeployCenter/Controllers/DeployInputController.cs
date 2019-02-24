@@ -16,7 +16,7 @@ namespace DeployCenter.Controllers
             // Get List of Reivisons from Folder
             string revisionPath = ConfigurationManager.AppSettings["RevisionPath"];
             string[] revisions = Directory.GetDirectories(revisionPath);
-           
+
             // Get the DeployServers information from the Web Root Path
 
             string webRootPath = Server.MapPath("~");
@@ -31,7 +31,7 @@ namespace DeployCenter.Controllers
             foreach (var env in envList)
             {
                 var item = new SelectListItem { Text = env, Value = env };
-                if (isFirst) { item.Selected = true;  isFirst = false; }
+                if (isFirst) { item.Selected = true; isFirst = false; }
                 else { item.Selected = false; }
                 model.EnvironmentList.Add(item);
             }
@@ -41,22 +41,29 @@ namespace DeployCenter.Controllers
             model.ServerList = new List<SelectListItem>();
             for (int i = 0; i < serverList.Count; i++)
             {
-                var item = new SelectListItem { Text = serverList[i].Name, Value = i.ToString() };
+                var item = new SelectListItem { Text = serverList[i].Name, Value = serverList[i].Name };
                 model.ServerList.Add(item);
             }
 
             // Load the list of Revisions
             revisions = revisions.OrderByDescending(x => x).ToArray();
             model.RevisionList = new List<SelectListItem>();
-            for (int i= 0; i < revisions.Length; i++)
+            for (int i = 0; i < revisions.Length; i++)
             {
-                var revs = revisions[i].Split('\\'); 
-                var path = revs[revs.Length - 1];
-                var item = new SelectListItem { Text = path, Value = i.ToString() };
+                var revs = revisions[i].Split('\\');
+                var rev = revs[revs.Length - 1];
+                var item = new SelectListItem { Text = rev, Value = rev };
                 model.RevisionList.Add(item);
             };
-        
+
             return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult Index(DeployInputModel model)
+        {
+
+            return View();
         }
 
         public ActionResult FillServerList(string environmentKey)
@@ -70,12 +77,13 @@ namespace DeployCenter.Controllers
             var servers = new List<ServerInfo>();
             foreach (var server in serverList)
             {
-                servers.Add(new ServerInfo() { Name = server.Name, Id = server.Id});
+                servers.Add(new ServerInfo() { Name = server.Name, Id = server.Id });
             }
 
             IEnumerable<ServerInfo> serverMatches = servers;
             return Json(serverMatches, JsonRequestBehavior.AllowGet);
 
         }
+
     }
 }
