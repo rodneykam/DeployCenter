@@ -23,6 +23,11 @@ namespace DeployCenter.Controllers
             var deployTargets = new DeployTargets(webRootPath);
 
             var model = new DeployInputModel();
+            model.SelectedDeployOptions = new bool[(int)DeployOption.Type.MAX_OPTION];
+            for(int i=0; i<model.SelectedDeployOptions.Length; i++)
+            {
+                model.SelectedDeployOptions[i] = false;
+            }
 
             // Load the list of Environments
             var envList = deployTargets.GetEnvironmentList();

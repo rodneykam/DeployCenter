@@ -40,39 +40,19 @@
         @Html.ValidationMessageFor(model => model.Revision, "", new { @class = "text-danger" })
     </div>
     <div>
+        <label>Deploy Options:</label>
         <table>
-            <tr>
-                <td>@Html.CheckBoxFor(model => model.Do_CopyUnzip)</td>
-                <td>@Html.LabelFor(model => model.Do_CopyUnzip)</td>
-            </tr>
-            <tr>
-                <td>@Html.CheckBoxFor(model => model.Do_DisableLB)</td>
-                <td>@Html.LabelFor(model => model.Do_DisableLB)</td>
-            </tr>
-            <tr>
-                <td>@Html.CheckBoxFor(model => model.Do_Core)</td>
-                <td>@Html.LabelFor(model => model.Do_Core)</td>
-            </tr>
-            <tr>
-                <td>@Html.CheckBoxFor(model => model.Do_Hydro)</td>
-                <td>@Html.LabelFor(model => model.Do_Hydro)</td>
-            </tr>
-            <tr>
-                <td>@Html.CheckBoxFor(model => model.Do_Verification)</td>
-                <td>@Html.LabelFor(model => model.Do_Verification)</td>
-            </tr>
-            <tr>
-                <td>@Html.CheckBoxFor(model => model.Do_EnableLB)</td>
-                <td>@Html.LabelFor(model => model.Do_EnableLB)</td>
-            </tr>
-            <tr>
-                <td>@Html.CheckBoxFor(model => model.Do_Switches)</td>
-                <td>@Html.LabelFor(model => model.Do_Switches)</td>
-            </tr>
-            <tr>
-                <td>@Html.CheckBoxFor(model => model.Do_DirMsg)</td>
-                <td>@Html.LabelFor(model => model.Do_DirMsg)</td>
-            </tr>
+            @{ 
+                for (int i = 0; i < Model.SelectedDeployOptions.Length; i++)
+                {
+                    var type = (DeployOption.Type)i;
+                    var desc = DeployOption.GetTypeDescription(type);
+                    <tr>
+                        <td>@Html.CheckBoxFor(model => model.SelectedDeployOptions[i])</td>
+                        <td>@Html.Label(desc)</td>
+                    </tr>
+                }
+            }
         </table>
     </div>
     <div>
@@ -85,6 +65,15 @@
 @section Scripts {
 
     <script type="text/javascript">
+  
+        $(document).ready(function () {
+            $("form").submit(function () {
+                if ($('input:checkbox').filter(':checked').length < 1) {
+                    alert("Check at least one Deploy Option!");
+                    return false;
+                }
+            });
+        });
 
         function FillServerList() {
             var envKey = $('#EnvironmentId').val();
