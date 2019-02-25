@@ -67,8 +67,15 @@ namespace DeployCenter.Controllers
         [HttpPost]
         public ActionResult Index(DeployInputModel model)
         {
+            var runModel = new DeployRunModel
+            {
+                Revision = model.Revision,
+                Environment = model.EnvironmentId,
+                Servers = model.Servers,
+                DeployOptions = model.SelectedDeployOptions
+            };
 
-            return View();
+            return View("../DeployRun/Index",runModel);
         }
 
         public ActionResult FillServerList(string environmentKey)

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DeployCenter.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,9 +10,9 @@ namespace DeployCenter.Controllers
     public class DeployRunController : Controller
     {
         // GET: DeployRun
-        public ActionResult Index()
+        public ActionResult Index(DeployRunModel model)
         {
-            return View();
+            return View(model);
         }
     }
 }

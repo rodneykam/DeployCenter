@@ -1,0 +1,39 @@
+﻿
+@{
+    ViewBag.Title = "Run Clinical Health Systems Deployment";
+}
+@model DeployCenter.Models.DeployRunModel
+
+<h2>Selected Deployment Parameters</h2>
+
+<p>
+    @Html.LabelFor(model => model.Revision)
+    @Html.DisplayFor(model => model.Revision)
+</p>
+<p>
+    @Html.LabelFor(model => model.Environment)
+    @Html.DisplayFor(model => model.Environment)
+</p>
+<p>
+    @Html.LabelFor(model => model.Servers)
+    @Html.ListBoxFor(model => model.Servers, new SelectList(Model.Servers))
+</p>
+<p>
+    <label>Selected Options:</label>
+    <br />
+    @{ 
+        for(int i = 0; i < Model.DeployOptions.Length; i++ )
+        {
+            if (Model.DeployOptions[i] == true)
+            {
+                var type = (DeployOption.Type)i;
+                var desc = DeployOption.GetTypeDescription(type);
+                <b>&#10004;&nbsp;</b>@Html.Label(desc)
+                <br />
+            }
+        }
+    }
+</p>
+
+
+
